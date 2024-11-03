@@ -13,6 +13,7 @@ import Table from './components/Tabel'
 import LoginPage from './components/LoginPage'
 import axios from 'axios'
 import { useState } from 'react'
+import Transaksi from './components/Transaksi'
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -53,7 +54,7 @@ function App() {
           <Navbar />
           <div className='flex justify-between p-6 bg-gray-100'>
             <h1 className='text-3xl font-bold mb-6'>Data Transaksi</h1>
-            <Button className='font-semibold'>Tambah Transaksi</Button>
+            <Transaksi />
           </div>
           <Table />
         </div>
