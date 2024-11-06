@@ -48,7 +48,9 @@ function App() {
 
   return (
     <>
-      <div className='flex h-screen'>
+      <Sidebar />
+      {/* <Navbar /> */}
+      {/* <div className='flex h-screen'>
         <Sidebar />
         <div className='flex flex-col flex-1'>
           <Navbar />
@@ -58,14 +60,14 @@ function App() {
           </div>
           <Table />
         </div>
-      </div>
+      </div> */}
       {/* {isLogin ? <div className="flex h-screen">
         <Sidebar />
         <div className="flex flex-col flex-1">
           <Navbar />
           <div className="flex justify-between p-6 bg-gray-100">
             <h1 className="text-3xl font-bold mb-6">Data Transaksi</h1>
-            <Button className='font-semibold'>Tambah Transaksi</Button>
+            <Transaksi />
           </div>
           <Table />
          </div>
