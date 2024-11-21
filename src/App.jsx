@@ -10,45 +10,51 @@ import React, { useEffect } from 'react';
 import Sidebar from './components/SideBar'
 import Navbar from './components/Navbar';
 import Table from './components/Tabel'
-import LoginPage from './components/LoginPage'
+// import LoginPage from './components/LoginPage'
 import axios from 'axios'
 import { useState } from 'react'
 import Transaksi from './components/Transaksi'
+import Wishlist from './components/Wishlist'
+import CreateProduct from './components/AddProduct'
+
+
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
+  // const [isLogin, setIsLogin] = useState(false);
 
-  useEffect (() => {
-    const isToken = localStorage.getItem('token')
-    if (isToken) {
-      setIsLogin(true)
-    }else {
-      setIsLogin(false)
-    }
-  }, [])
+  // useEffect (() => {
+  //   const isToken = localStorage.getItem('token')
+  //   if (isToken) {
+  //     setIsLogin(true)
+  //   }else {
+  //     setIsLogin(false)
+  //   }
+  // }, [])
 
-  const onLogin = (username, password) => {
-    axios.post("/api/v1/auth/login",
-      {
-        "username": username,
-        "password": password,
-      }
-    ).then ((sukses) => {
-      localStorage.setItem('token', sukses.data.data.token)
-      console.log("data", sukses)
-      setIsLogin(true)
-    })
-    .catch ((error) => {
-      console.error("error", error)
-      setIsLogin(false)
-    })
-  }
+  // const onLogin = (username, password) => {
+  //   axios.post("/api/v1/auth/login",
+  //     {
+  //       "username": username,
+  //       "password": password,
+  //     }
+  //   ).then ((sukses) => {
+  //     localStorage.setItem('token', sukses.data.data.token)
+  //     console.log("data", sukses)
+  //     setIsLogin(true)
+  //   })
+  //   .catch ((error) => {
+  //     console.error("error", error)
+  //     setIsLogin(false)
+  //   })
+  // }
 
 
 
   return (
     <>
-      <Sidebar />
+      <Wishlist />
+      <CreateProduct />
+      {/* <Sidebar />
       {/* <Navbar /> */}
       {/* <div className='flex h-screen'>
         <Sidebar />
