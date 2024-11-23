@@ -2,8 +2,7 @@
 
 const Sidebar = () => {
     return (
-      <div className="h-screen w-40 bg-sky-500 text-white flex flex-col p-4">
-        <h1 className="text-medium font-bold mb-8">JHON LAUNDRY</h1>
+      <div className="h-screen w-22 bg-blue-300 text-white flex flex-col">
         <nav className="flex flex-col gap-4">
           <a href="#" className="flex items-center p-2 rounded hover:bg-gray-700">
             <span>Produk</span>

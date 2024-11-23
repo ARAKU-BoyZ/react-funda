@@ -1,25 +1,68 @@
-import Header from './components/Header'
-import Footer from './components/Footer'
-import Profile from './components/Profile'
-import Counter from './components/Counter'
-import { Button, Divider } from '@nextui-org/react'
-import Dashboard from './components/Dashboard'
-import { Routes, Route } from 'react-router-dom'
-// App.js
-import React, { useEffect } from 'react';
-import Sidebar from './components/SideBar'
-import Navbar from './components/Navbar';
-import Table from './components/Tabel'
-// import LoginPage from './components/LoginPage'
-import axios from 'axios'
-import { useState } from 'react'
-import Transaksi from './components/Transaksi'
-import Wishlist from './components/Wishlist'
-import CreateProduct from './components/AddProduct'
+import Login from './components/pages/LoginPage'
+import CreateProduct from './components/AddProduct';
+import SignupPage from './components/pages/SignupPage';
+import LoginPage from './components/pages/LoginPage';
+import Product from './components/pages/dashboard/Product';
+import ListProduct from './components/pages/ListProduct';
+import Dashboard from './components/pages/dashboard/Dashboard';
+import { Toaster } from 'sonner';
+import { Route, Routes } from 'react-router-dom';
+import Homepage from './components/pages/Homepage';
+
+
 
 
 
 function App() {
+  return (
+    <>
+      <Toaster position='top-center' />
+          <Routes>
+            <Route element={<Homepage />} path='/' />
+            <Route element={<LoginPage />} path='/Login' />
+            <Route element={<SignupPage />} path='/Signup' />
+            <Route element={<Dashboard />} path='/Dashboard' />
+          </Routes>
+    </>
+
+
+
+);
+}
+
+export default App;
+
+
+
+{/* <ListProduct /> */}
+{/* <CreateProduct /> */}
+{/* <Product /> */}
+{/* <Dashboard /> */}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   // const [isLogin, setIsLogin] = useState(false);
 
   // useEffect (() => {
@@ -50,10 +93,10 @@ function App() {
 
 
 
-  return (
-    <>
-      <Wishlist />
-      <CreateProduct />
+
+  
+
+
       {/* <Sidebar />
       {/* <Navbar /> */}
       {/* <div className='flex h-screen'>
@@ -78,10 +121,3 @@ function App() {
           <Table />
          </div>
       </div> : <LoginPage data={onLogin} />} */}
-    </>
-
-  );
-}
-
-export default App;
-{/* <Counter /> */}

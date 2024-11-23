@@ -16,12 +16,12 @@ const store = createStore(reducers);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Provider store={store}> {/* Materi Redux */}
+    {/* <Provider> Materi Redux */}
       <NextUIProvider>
         <BrowserRouter>
           <App />
         </BrowserRouter>
       </NextUIProvider>
-    </Provider>
+    {/* </Provider> */}
   </StrictMode>,
 )

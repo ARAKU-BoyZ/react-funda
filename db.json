@@ -1,0 +1,75 @@
+{
+  "product": [
+    {
+      "id": "1",
+      "name": "Karpet",
+      "berat": "7 Kg"
+    },
+    {
+      "id": "2",
+      "name": "Bed Cover",
+      "berat": "5 Kg"
+    },
+    {
+      "id": "3",
+      "name": "Selimut",
+      "berat": "6 Kg"
+    },
+    {
+      "id": "388f",
+      "name": "asd",
+      "berat": "asdasd"
+    },
+    {
+      "id": "d194",
+      "name": "asd",
+      "berat": "asdasd"
+    },
+    {
+      "id": "ce01",
+      "name": "asd",
+      "berat": "asdasd"
+    },
+    {
+      "id": "3d44",
+      "name": "asd",
+      "berat": "asdasd"
+    },
+    {
+      "id": "de44",
+      "name": "",
+      "berat": ""
+    },
+    {
+      "id": "8c3b",
+      "nama": "assda",
+      "berat": "sssa"
+    },
+    {
+      "id": "34e1",
+      "nama": "assda",
+      "berat": "sssa"
+    },
+    {
+      "id": "34df",
+      "nama": "assda",
+      "berat": ""
+    },
+    {
+      "id": "c31d",
+      "nama": "assda",
+      "berat": "asdasd"
+    },
+    {
+      "id": "35af",
+      "nama": "asda",
+      "berat": "ssaa"
+    },
+    {
+      "id": "2b54",
+      "name": "asdasd",
+      "berat": "sdasdasdasd"
+    }
+  ],
+  "user": []
+}

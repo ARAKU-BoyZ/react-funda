@@ -1,32 +1,40 @@
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/react";
-import { useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import { axiosInstance } from "../lib/axios";
 
 const CreateProduct = () => {
-    // Button Modal
+    // Modal state
     const {isOpen, onOpen, onOpenChange} = useDisclosure()
 
-    // Refrensi Inputan
-    const inputBarang = useRef()
-    const inputBerat = useRef()
 
     // set produk list
-    const [listProduct, setListProduct] = useState([])
+    const [listItems, setListItems] = useState([])
+    const [inputBarang, setInputBarang] = useState("")
+    const [inputBerat, setInputBerat] = useState("")
 
-
-    const addProduct = () => {
-        const listInputBarang = inputBarang.current.value;
-        const listInputBerat = inputBerat.current.value;
-
-        if (!listInputBarang || listInputBerat) {
-            setListProduct([...listProduct, {listInputBarang, listInputBerat}])
-            return
-        }
-
-
-        // bersihkan input
-        inputBarang.current.value
-        inputBerat.current.value
+    // Konfigurasi Axios
+    const fetchListItems = async () => {
+        // Mendapatkan Data ke API
+        const response = await axiosInstance.get("/product")
+        setListItems(response.data)
     }
+
+
+    // Fungsi Button Submit
+    const addProduct = async () => {
+        await axiosInstance.post("/product", {
+            name: inputBarang,
+            berat: inputBerat,
+        })
+        fetchListItems()
+        setInputBarang("")
+        setInputBerat("")
+    }
+
+    useEffect(() => {
+        fetchListItems()
+    }, [])
 
 
     return (
@@ -40,11 +48,19 @@ const CreateProduct = () => {
                             <ModalBody>
                                 <div>
                                     <h1>Masukan Barang</h1>
-                                    <Input ref={inputBarang}/>
+                                    <Input onChange={(event) => {
+                                        setInputBarang(event.target.value)
+                                    }}
+                                    value={inputBarang}
+                                     placeholder="Masukan Barang"/>
                                 </div>
                                 <div>
                                     <h2>Masukan Berat</h2>
-                                    <Input ref={inputBerat}/>
+                                    <Input onChange={(event) => {
+                                        setInputBerat(event.target.value)
+                                    }}
+                                    value={inputBerat}
+                                     placeholder="Berat Barang"/>
                                 </div>
                             </ModalBody>
                             <ModalFooter>
@@ -61,9 +77,11 @@ const CreateProduct = () => {
             </Modal>
 
             <ul className="list-decimal list-inside text-center">
-                {listProduct.map((produk) => {
-                    return <li>Barang: {produk.inputBarang}, Berat: {produk.inputBerat}</li>
-                })}
+                {listItems.map((item, index) => (
+                    <li key={index}>
+                        {item.name} - {item.berat}
+                    </li>
+                ))}
             </ul>
         </>
     )
