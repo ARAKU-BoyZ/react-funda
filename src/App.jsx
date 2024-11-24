@@ -1,13 +1,9 @@
-import Login from './components/pages/LoginPage'
-import CreateProduct from './components/AddProduct';
-import SignupPage from './components/pages/SignupPage';
-import LoginPage from './components/pages/LoginPage';
-import Product from './components/pages/dashboard/Product';
-import ListProduct from './components/pages/ListProduct';
-import Dashboard from './components/pages/dashboard/Dashboard';
+import LoginPage from '../src/pages/LoginPage'
+import Customer from '../src/pages/dashboard/Customer'
+import Dashboard from './components/Dashboard';
+import SignupPage from '../src/pages/SignupPage'
 import { Toaster } from 'sonner';
 import { Route, Routes } from 'react-router-dom';
-import Homepage from './components/pages/Homepage';
 
 
 
@@ -18,10 +14,11 @@ function App() {
     <>
       <Toaster position='top-center' />
           <Routes>
-            <Route element={<Homepage />} path='/' />
-            <Route element={<LoginPage />} path='/Login' />
+            {/* <Route element={<Homepage />} path='/' /> */}
+            <Route element={<LoginPage />} path='/login' />
             <Route element={<SignupPage />} path='/Signup' />
             <Route element={<Dashboard />} path='/Dashboard' />
+            <Route element={<Customer />} path='/Customer' />
           </Routes>
     </>
 

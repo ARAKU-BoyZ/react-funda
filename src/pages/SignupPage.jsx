@@ -4,7 +4,8 @@ import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { axiosInstance } from "../lib/axios";
 
 
 // Validasi Inputan
@@ -17,6 +18,7 @@ const SignupSchema = z.object({
 
 
 const SignupPage = () => {
+    const navigate = useNavigate()
     // Fungsi menyimpan Semua hasil inputan
     const form = useForm({
         defaultValues: {
@@ -30,9 +32,16 @@ const SignupPage = () => {
 
     const registerUser = async (data) => {
         try {
-            toast.success("Pendaftaran Berhasil")
+          const userData = {...data, role: "employee"}
+          const response = await axiosInstance.post('/auth/register', userData)
+          toast.success("Pendaftaran Berhasil")
+          if (response.status === 201) {
+            setTimeout(() => {
+              navigate('login')
+            }, 1000)
+          }
         } catch (error) {
-            toast.error("Pendaftaran gagal")
+          toast.error("Pendaftaran gagal")
         }
     }
 

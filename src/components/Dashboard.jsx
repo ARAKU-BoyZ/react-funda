@@ -6,9 +6,9 @@ import logo from '../assets/washer.png'
 
 const Dashboard = () => {
     return (
-        <div className="flex h-screen">
+        <div className="flex flex-col">
             <div className="w-1/5 mx-3 border-r-2 pr-2">
-                <img className="w-16" src={logo} alt=""/>
+                <img className="w-12 p-2" src={logo} alt=""/>
                 <br/>
                 <h6 className="font-bold">HOME</h6>
                 <Button color="primary" className="w-full pl-2 justify-start mt-2">Produk</Button>

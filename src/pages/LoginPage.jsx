@@ -1,10 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@nextui-org/react";
-import React from "react";
+import React, { useEffect, } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { z } from "zod";
+import { axiosInstance } from "../lib/axios";
+import { useDispatch } from "react-redux";
+import { login } from "../store/actions/authActions";
 
 
 
@@ -15,6 +18,8 @@ const LoginSchema = z.object({
 })
 
 const LoginPage = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const form = useForm({
     defaultValues: {
       username: "",
@@ -25,11 +30,29 @@ const LoginPage = () => {
 
   const LoginUser = async (data) => {
     try {
-      toast.success("Login berhasil")
+      const response = await axiosInstance.post('auth/login', data)
+      const token = response.data.data.token
+      const combined = token
+      if (response.data.status.code === 201) {
+        toast.success("Login berhasil")
+        dispatch(login(combined)) 
+        navigate('/Customer')
+      } else {
+        toast.error("Invalid username or password")
+      }
     } catch (error) {
-      toast.error("Login Error")
+      if (error?.response?.data?.status) {
+        toast.error("Login Error")
+      } else {
+        toast.error("Server error")
+      }
+      console.log(error.response)
     }
   }
+
+  useEffect(() => {
+    toast.info("Akun Demo Role Admin, Username: admin, Password: password");
+  }, []);
 
 
   return (
