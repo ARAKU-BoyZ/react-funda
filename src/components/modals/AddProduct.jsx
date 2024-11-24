@@ -1,11 +1,16 @@
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { axiosInstance } from "../lib/axios";
+import { axiosInstance } from "../../lib/axios";
+import { useDispatch, useSelector } from "react-redux";
 
 const CreateProduct = () => {
     // Modal state
     const {isOpen, onOpen, onOpenChange} = useDisclosure()
+
+    const dispatch = useDispatch()
+
+    const token = useSelector((state) => state.auth.authData)
 
 
     // set produk list
@@ -17,7 +22,7 @@ const CreateProduct = () => {
     const fetchListItems = async () => {
         // Mendapatkan Data ke API
         const response = await axiosInstance.get("/product")
-        setListItems(response.data)
+        dispatch(response.data)
     }
 
 
@@ -39,7 +44,7 @@ const CreateProduct = () => {
 
     return (
         <>
-            <Button onPress={onOpen}>Open Modal</Button>
+            <Button onPress={onOpen}>Tambah Product</Button>
             <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
                 <ModalContent>
                     {(onClose) => (
@@ -75,14 +80,6 @@ const CreateProduct = () => {
                     )}
                 </ModalContent>
             </Modal>
-
-            <ul className="list-decimal list-inside text-center">
-                {listItems.map((item, index) => (
-                    <li key={index}>
-                        {item.name} - {item.berat}
-                    </li>
-                ))}
-            </ul>
         </>
     )
 }

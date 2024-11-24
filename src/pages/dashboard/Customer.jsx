@@ -1,5 +1,4 @@
 import { Button } from "@nextui-org/react"
-import Sidebar from "../../components/Sidebar"
 import { useEffect, useState } from "react"
 import { axiosInstance } from "../../lib/axios"
 import { IsAuth } from "../../hoc/checkAuth"
@@ -9,8 +8,8 @@ import { useSelector } from "react-redux"
 
 
 const Customer = () => {
-    
     const [customerList, setCustomerList] = useState ([])
+    
 
     const token = useSelector((state) =>  state.auth.authData)
 

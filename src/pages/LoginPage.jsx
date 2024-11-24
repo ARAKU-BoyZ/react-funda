@@ -36,7 +36,7 @@ const LoginPage = () => {
       if (response.data.status.code === 201) {
         toast.success("Login berhasil")
         dispatch(login(combined)) 
-        navigate('/Customer')
+        navigate('/Dashboard')
       } else {
         toast.error("Invalid username or password")
       }

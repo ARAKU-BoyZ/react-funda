@@ -1,74 +1,59 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { Button } from "@nextui-org/react";
-
+import React, { useEffect, useState } from "react";
+import { axiosInstance } from "../lib/axios"
+import { useSelector } from "react-redux";
+import { IsAuth } from '../hoc/checkAuth'
 
 const Table = () => {
-    const [data, setData] = useState([])
+  const [customerList, setCustomerList] = useState ([])
 
+  const token = useSelector((state) => state.auth.authData)
+  
 
-    useEffect(() => {
-        getData()
-    }, [])
-
-
-    const getData = () => {
-        const token = localStorage.getItem('token')
-
-        const config = {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }
-
-        axios.get("/api/v1/bills", config).then((sukses) => {
-            console.log("sukses", sukses)
-            setData(sukses.data.data)
-        }).catch((error) => {
-            if (error.response.data.message == "Unauthorized" && error.status == 401) {
-                localStorage.removeItem("token")
-                window.location.reload();
-            }
-            console.log("error", error)
-        })
+  const fetchListCustomer = async () => {
+    try {
+      const headers = {
+        Authorization: `Bearer ${token}`
+      }
+      const response = await axiosInstance.get('/customers', {headers})
+      setCustomerList(response.data.data)
+    } catch (error) {
+      console.log(error.message)
     }
+  }
 
 
-    return (
+  useEffect(() => {
+    fetchListCustomer()
+  }, [])
+
+
+  return (
     <div className="overflow-x-auto">
-        <table className="min-w-full bg-white border border-gray-200">
-          <thead>
-            <tr>
-              <th className="px-6 py-3 border-b bg-gray-200 text-gray-800 text-left text-sm font-medium">
-                Kode Pelanggan
-              </th>
-              <th className="px-6 py-3 border-b bg-gray-200 text-gray-800 text-left text-sm font-medium">
-                Nama Pelanggan
-              </th>
-              <th className="px-6 py-3 border-b bg-gray-200 text-gray-800 text-left text-sm font-medium">
-                Tabel Transaksi
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-                data.map((item, index) => {
-                    return (
-                        <tr key={index.toString()} className="hover:bg-gray-100">
-                            <td className="px-6 py-4 border-b text-sm text-gray-700">{item.customer.phoneNumber}</td>
-                            <td className="px-6 py-4 border-b text-sm text-gray-700">{item.customer.name}</td>
-                            <td className="px-6 py-4 border-b text-sm text-gray-700">
-                                <Button>Detail Transaksi</Button>
-                            </td>
-                        </tr>
-                    )
-                })
-            }
-          </tbody>
-        </table>
+      <table className="min-w-full bg-white border border-gray-200">
+        <thead>
+          <tr>
+            <th className="px-4 py-2 border">No.</th>
+            <th className="px-4 py-2 border">Nama Customer</th>
+            <th className="px-4 py-2 border">Nomer Handphone</th>
+            <th className="px-4 py-2 border">Alamat Cutomer</th>
+            <th className="px-4 py-2 border">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {customerList.map((customer, index) => {
+            return (
+              <tr key={index}>
+                <td className="px-4 py-2 text-center border">{index + 1}</td>
+                <td className="px-4 py-2 text-center border">{customer.name}</td>
+                <td className="px-4 py-2 text-center border">{customer.phoneNumber}</td>
+                <td className="px-4 py-2 text-center border">{customer.address}</td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
     </div>
+  );
+};
 
-    )
-}
-
-export default Table;
+export default IsAuth(Table);

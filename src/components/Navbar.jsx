@@ -1,18 +1,20 @@
-import { Avatar } from '@nextui-org/react';
-
+import { Avatar } from "@nextui-org/react";
+import React from "react";
 
 const Navbar = () => {
+
   return (
-    <>
-      <div className='w-full bg-blue-300 flex justify-between'>
-        <div>
-          <a>Logo</a>
-        </div>
-        <div>
+    <nav className="bg-blue-600 p-4 text-white">
+      <div className="flex justify-between items-center">
+        <h1 className="text-lg font-bold">EnigmaCamp</h1>
+        <button className="md:hidden bg-blue-700 px-2 py-1 rounded">
+          Menu
+        </button>
+        <ul className="hidden md:flex gap-4">
           <Avatar />
-        </div>
+        </ul>
       </div>
-    </>
+    </nav>
   );
 };
 

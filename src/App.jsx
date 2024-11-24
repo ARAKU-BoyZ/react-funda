@@ -1,6 +1,6 @@
 import LoginPage from '../src/pages/LoginPage'
 import Customer from '../src/pages/dashboard/Customer'
-import Dashboard from './components/Dashboard';
+import Dashboard from '../src/pages/dashboard/Dashboard'
 import SignupPage from '../src/pages/SignupPage'
 import { Toaster } from 'sonner';
 import { Route, Routes } from 'react-router-dom';
@@ -14,7 +14,6 @@ function App() {
     <>
       <Toaster position='top-center' />
           <Routes>
-            {/* <Route element={<Homepage />} path='/' /> */}
             <Route element={<LoginPage />} path='/login' />
             <Route element={<SignupPage />} path='/Signup' />
             <Route element={<Dashboard />} path='/Dashboard' />
