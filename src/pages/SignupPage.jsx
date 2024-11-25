@@ -37,7 +37,7 @@ const SignupPage = () => {
           toast.success("Pendaftaran Berhasil")
           if (response.status === 201) {
             setTimeout(() => {
-              navigate('/login')
+              navigate('/')
             }, 1000)
           }
         } catch (error) {

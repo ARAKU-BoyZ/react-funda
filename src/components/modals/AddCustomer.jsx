@@ -9,7 +9,7 @@ import { toast } from "sonner"
 
 const customerSchema = z.object({
     name: z.string().min(3, "Minimum 3 character"),
-    phoneNumber: z.string().min(10, "Minimum 10 characters"),
+    phoneNumber: z.number().min(10, "Minimum 10 characters"),
     address: z.string().min(3, "Minimum 3 characters"),
 })
 
@@ -17,7 +17,7 @@ const CreateCustomer = () => {
     const dispatch = useDispatch()
     const {isOpen, onOpen, onOpenChange} = useDisclosure()
 
-    const token = useSelector((state) => state.auth.authData.token)
+    const token = useSelector((state) => state.auth.authData)
 
     //Set Customer
     const [inputNama, setInputNama] = useState("")
@@ -25,18 +25,23 @@ const CreateCustomer = () => {
     const [inputAddress, setInputAddress] = useState("")
 
     // GlobalState
-    const addCustomerGlobal = async (data) => {
+    const addCustomerGlobal = async (e) => {
         try {
             const headers = {
                 Authorization: `Bearer ${token}`,
             }
-            const response = await axiosInstance.post("/customers/", data, {headers})
+            const response = await axiosInstance.post("/customers/", {
+                name: inputNama,
+                phoneNumber: inputPhoneNumber,
+                address: inputAddress,
+            }, {headers})
 
             if (response.status === 201) {
                 toast.success("Customer Created Successfully")
                 dispatch(addCustomer(response.data.data))
             }
         } catch (error) {
+            console.log(error)
             toast.error("Server Error")
         }
     }
