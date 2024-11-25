@@ -1,76 +1,71 @@
-import { Button } from "@nextui-org/react"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react";
 import { axiosInstance } from "../../lib/axios"
-import { IsAuth } from "../../hoc/checkAuth"
-import { useSelector } from "react-redux"
-
-
-
+import { useSelector } from "react-redux";
+import { IsAuth } from '../../hoc/checkAuth'
+import { Button } from "@nextui-org/react";
+import AddCustomer from '../../components/modals/AddCustomer'
 
 const Customer = () => {
-    const [customerList, setCustomerList] = useState ([])
-    
+  const [customerList, setCustomerList] = useState ([])
 
-    const token = useSelector((state) =>  state.auth.authData)
+  const token = useSelector((state) => state.auth.authData)
+  
 
-    const fetchListCustomer = async () => {
-        try {
-            const headers = {
-                Authorization: `Bearer ${token}`
-            }
-            const response = await axiosInstance.get('/customers', {headers})
-            setCustomerList(response.data.data)
-        } catch (error) {
-            console.log(error.message)
-        }
+  const fetchListCustomer = async () => {
+    try {
+      const headers = {
+        Authorization: `Bearer ${token}`
+      }
+      const response = await axiosInstance.get('/customers', {headers})
+      setCustomerList(response.data.data)
+    } catch (error) {
+      console.log(error.message)
     }
+  }
 
 
-    useEffect(() => {
-        fetchListCustomer()
-    }, [])
+  useEffect(() => {
+    fetchListCustomer()
+  }, [])
 
 
-    return (
-        <div className="row">
-            <div className="col-auto">
-                {/* <Sidebar /> */}
-            </div>
-            <div className="col mx-5 px-5 md:mx-0 md:px-0">
-                <div>
-                    <h1 className="text-center">Customer List</h1>
-                    <Button color="primary">Add Customer</Button>
-                    <table className="table-auto w-full border border-gray-300">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Nama</th>
-                                <th>Phone Number</th>
-                                <th>Alamat</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {customerList.map((customer, index) => {
-                                return (
-                                    <tr key={index}>
-                                        <td>{index + 1}</td>
-                                        <td>{customer.name}</td>
-                                        <td>{customer.phoneNumber}</td>
-                                        <td>{customer.address}</td>
-                                        <td>
-                                            <Button color="success" className="mx-2">Edit</Button>
-                                            <Button color="danger" className="mx-2">Delete</Button>
-                                        </td>
-                                    </tr>
-                                )
-                            })}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    )
-}
+  return (
+    <div className="overflow-x-auto">
+      <div className="flex justify-end mb-8">
+        <AddCustomer />
+      </div>
+      <table className="min-w-full bg-white border border-gray-200">
+        <thead>
+          <tr>
+            <th className="px-4 py-2 border">No.</th>
+            <th className="px-4 py-2 border">Nama Customer</th>
+            <th className="px-4 py-2 border">Nomer Handphone</th>
+            <th className="px-4 py-2 border">Alamat Cutomer</th>
+            <th className="px-4 py-2 border">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {customerList.map((customer, index) => {
+            return (
+              <tr key={index}>
+                <td className="px-4 py-2 text-center border">{index + 1}</td>
+                <td className="px-4 py-2 text-center border">{customer.name}</td>
+                <td className="px-4 py-2 text-center border">{customer.phoneNumber}</td>
+                <td className="px-4 py-2 text-center border">{customer.address}</td>
+                <td className="px-4 py-2 text-center border">
+                  <div className="flex justify-center">
+                    <Button>Transaksi</Button>
+                    <Button>Edit</Button>
+                    <Button>Hapus</Button>
+                  </div>
+                </td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+};
 
-export default IsAuth(Customer)
+export default IsAuth(Customer);

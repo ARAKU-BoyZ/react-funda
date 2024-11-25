@@ -17,6 +17,8 @@ const CreateCustomer = () => {
     const dispatch = useDispatch()
     const {isOpen, onOpen, onOpenChange} = useDisclosure()
 
+    const token = useSelector((state) => state.auth.authData.token)
+
     //Set Customer
     const [inputNama, setInputNama] = useState("")
     const [inputPhoneNumber, setInputPhoneNumber] = useState("")
@@ -33,22 +35,20 @@ const CreateCustomer = () => {
             if (response.status === 201) {
                 toast.success("Customer Created Successfully")
                 dispatch(addCustomer(response.data.data))
-                console.log(dispatch)
             }
         } catch (error) {
-            console.log(error.message)
             toast.error("Server Error")
         }
     }
 
 
-    const addCustomer = async () => {
-        await axiosInstance.post("/customers", {
-            name: "",
-            phoneNumber: "",
-            address: "",
-        })
-    }
+    // const addCustomer = async () => {
+    //     await axiosInstance.post("/customers", {
+    //         name: "",
+    //         phoneNumber: "",
+    //         address: "",
+    //     })
+    // }
 
     return (
         <>

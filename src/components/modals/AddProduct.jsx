@@ -14,14 +14,14 @@ const CreateProduct = () => {
 
 
     // set produk list
-    const [listItems, setListItems] = useState([])
+    // const [listItems, setListItems] = useState([])
     const [inputBarang, setInputBarang] = useState("")
     const [inputBerat, setInputBerat] = useState("")
 
     // Konfigurasi Axios
     const fetchListItems = async () => {
         // Mendapatkan Data ke API
-        const response = await axiosInstance.get("/product")
+        const response = await axiosInstance.get("/products")
         dispatch(response.data)
     }
 

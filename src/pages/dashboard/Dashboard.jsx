@@ -1,8 +1,10 @@
 import React from "react";
 import Sidebar from "../../components/Sidebar";
 import Navbar from "../../components/Navbar";
-import Table from "../../components/Tabel";
+import Customer from "./Customer";
 import Footer from "../../components/Footer";
+import Product from "./Product";
+import Transaksi from "./Transaksi";
 
 const Dashboard = () => {
   return (
@@ -12,7 +14,15 @@ const Dashboard = () => {
         <Sidebar />
         <main className="flex-1 bg-gray-100 p-4">
           <h2 className="text-xl font-bold mb-4">User Data</h2>
-          <Table />
+          <div className="mb-16">
+            <Customer />
+          </div>
+          <div>
+            <Product />
+          </div>
+          <div>
+            <Transaksi />
+          </div>
         </main>
       </div>
       <Footer />

@@ -1,32 +1,27 @@
 import { useEffect, useState } from "react"
-import { axiosInstance } from "../../lib/axios"
-import { Button } from "@nextui-org/react"
 import { useSelector } from "react-redux"
-import { IsAuth } from "../../hoc/checkAuth"
+import { axiosInstance } from "../../lib/axios"
 
-const Product = () => {
-    const [productItems, setProductItems] = useState([])
+const Transaksi = () => {
+    const [listTransaksi, setListTransaksi] = useState('')
 
     const token = useSelector((state) => state.auth.authData)
-    
 
-    const fetchListProduct = async () => {
+    const fetchListTransaksi = async () => {
         try {
             const headers = {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearee ${token}`
             }
-            const response = await axiosInstance.get('/products', {headers})
-            setProductItems(response.data.data)
+            const response = await axiosInstance.get("/bills", {headers})
+            setListTransaksi(response.data.data)
         } catch (error) {
             console.log(error.message)
         }
     }
 
-
     useEffect(() => {
-        fetchListProduct()
+        fetchListTransaksi()
     }, [])
-
 
     return (
         <div className="overflow-x-auto">
@@ -41,13 +36,13 @@ const Product = () => {
             </tr>
           </thead>
           <tbody>
-            {productItems.map((product, index) => {
+            {Object.values(listTransaksi).map((transactions, index) => {
               return (
                 <tr key={index}>
                   <td className="px-4 py-2 text-center border">{index + 1}</td>
-                  <td className="px-4 py-2 text-center border">{product.name}</td>
-                  <td className="px-4 py-2 text-center border">{product.price}</td>
-                  <td className="px-4 py-2 text-center border">{product.type}</td>
+                  <td className="px-4 py-2 text-center border">{transactions.name}</td>
+                  {/* <td className="px-4 py-2 text-center border">{product.price}</td>
+                  <td className="px-4 py-2 text-center border">{product.type}</td> */}
                   <td className="px-4 py-2 text-center border">
                     <div className="flex justify-center">
                       <Button>Transaksi</Button>
@@ -64,4 +59,4 @@ const Product = () => {
     )
 }
 
-export default IsAuth(Product)
+export default Transaksi

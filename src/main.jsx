@@ -6,10 +6,13 @@ import { NextUIProvider } from '@nextui-org/react'
 import { BrowserRouter } from 'react-router-dom'
 import { reducers } from './store/store'
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import { applyMiddleware, createStore } from 'redux'
+import { thunk } from 'redux-thunk'
+
+
 
 // Materi Redux
-const store = createStore(reducers);
+const store = createStore(reducers, applyMiddleware(thunk));
 
 
 
