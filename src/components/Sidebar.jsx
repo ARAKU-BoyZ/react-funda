@@ -9,9 +9,9 @@ const Sidebar = () => {
   const navigate = useNavigate()
 
 
-  const handleClick = () => {
+  const handleClick = (path) => {
     setIsOpen(!isOpen)
-    navigate("/Dashboard-Customer")
+    navigate(path)
   }
 
   return (
@@ -19,9 +19,9 @@ const Sidebar = () => {
       <div className="items-center mb-4">
       </div>
       <div className="flex flex-col items-center">
-        <button className="mb-8" onClick={handleClick}>Customer</button>
-        <button className="mb-8">Product</button>
-        <button>Transaksi</button>
+        <button className="mb-8" onClick={() => handleClick("/Dashboard") }>Customer</button>
+        <button className="mb-8" onClick={() => handleClick("/product")}>Product</button>
+        <button onClick={() => handleClick("/transaksi")}>Transaksi</button>
       </div>
     </div>
   );

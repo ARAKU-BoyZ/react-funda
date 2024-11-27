@@ -44,7 +44,7 @@ const Transaksi = () => {
                 <tr key={index}>
                   <td className="px-4 py-2 text-center border">{index + 1}</td>
                   <td className="px-4 py-2 text-center border">{transactions.customer.name}</td>
-                  <td className="px-4 py-2 text-center border">{transactions.user.name}</td>
+                  <td className="px-4 py-2 text-center border">{transactions.billDetails[0].product.price}</td>
                   <td className="px-4 py-2 text-center border">
                     <div className="flex justify-center">
                       <Button>Transaksi</Button>
