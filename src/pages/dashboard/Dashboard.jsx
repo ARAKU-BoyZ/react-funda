@@ -13,11 +13,11 @@ const Dashboard = () => {
       <div className="flex flex-1">
         <Sidebar />
         <main className="flex-1 bg-gray-100 p-4">
-          <h2 className="text-xl font-bold mb-4">User Data</h2>
-          <div className="mb-16">
+          <h2 className="text-xl font-bold">User Data</h2>
+          <div className="mb-8">
             <Customer />
           </div>
-          <div>
+          <div className="mb-8">
             <Product />
           </div>
           <div>

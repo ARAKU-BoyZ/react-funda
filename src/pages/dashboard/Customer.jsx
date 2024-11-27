@@ -4,11 +4,26 @@ import { useSelector } from "react-redux";
 import { IsAuth } from '../../hoc/checkAuth'
 import { Button } from "@nextui-org/react";
 import AddCustomer from '../../components/modals/AddCustomer'
+import { toast } from "sonner";
+import { confirmAlert } from "react-confirm-alert";
+import editCustomer from "../../components/modals/EditCustomer";
+import { useNavigate } from "react-router-dom";
+import EditCustomer from "../../components/modals/EditCustomer";
 
 const Customer = () => {
   const [customerList, setCustomerList] = useState ([])
+  const [isOpen, setIsOpen] = useState()
 
+
+  const navigate = useNavigate()
   const token = useSelector((state) => state.auth.authData)
+
+
+  const handleClick = () => {
+    setIsOpen(!isOpen)
+    navigate('/Edit-Customer')
+
+  }
   
 
   const fetchListCustomer = async () => {
@@ -31,7 +46,7 @@ const Customer = () => {
 
   return (
     <div className="overflow-x-auto">
-      <div className="flex justify-end mb-8">
+      <div className="flex justify-end mb-4">
         <AddCustomer />
       </div>
       <table className="min-w-full bg-white border border-gray-200">
@@ -53,9 +68,9 @@ const Customer = () => {
                 <td className="px-4 py-2 text-center border">{customer.phoneNumber}</td>
                 <td className="px-4 py-2 text-center border">{customer.address}</td>
                 <td className="px-4 py-2 text-center border">
-                  <div className="flex justify-center">
+                  <div className="flex justify-evenly">
                     <Button>Transaksi</Button>
-                    <Button>Edit</Button>
+                    <Button onClick={handleClick}></Button>
                     <Button>Hapus</Button>
                   </div>
                 </td>

@@ -42,7 +42,7 @@ const LoginPage = () => {
       }
     } catch (error) {
       if (error?.response?.data?.status) {
-        toast.error("Login Error")
+        toast.error("Login Error, Silahkan daftar terlebih dahulu")
       } else {
         toast.error("Server error")
       }

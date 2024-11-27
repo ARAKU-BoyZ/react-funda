@@ -3,6 +3,8 @@ import Dashboard from '../src/pages/dashboard/Dashboard'
 import SignupPage from '../src/pages/SignupPage'
 import { Toaster } from 'sonner';
 import { Route, Routes } from 'react-router-dom';
+import Customer from './pages/dashboard/Customer';
+import EditCustomer from './components/modals/EditCustomer';
 
 
 
@@ -16,6 +18,8 @@ function App() {
             <Route element={<LoginPage />} path='/' />
             <Route element={<SignupPage />} path='/Signup' />
             <Route element={<Dashboard />} path='/Dashboard' />
+            <Route element={<Customer />} path='/Dashboard-Customer' />
+            <Route element={<EditCustomer />} path='/Edit-Customer' />
           </Routes>
     </>
 

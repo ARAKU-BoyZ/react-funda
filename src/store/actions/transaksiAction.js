@@ -3,7 +3,7 @@ export const setTransactions = (transactions) => ({
     payload: { transactions },
 })
 
-export function addTransaction(transaction) {
+export const addTransaction = (transaction) => {
     return {
         type: "ADD_TRANSACTION",
         payload: { transaction },

@@ -46,15 +46,6 @@ const CreateCustomer = () => {
         }
     }
 
-
-    // const addCustomer = async () => {
-    //     await axiosInstance.post("/customers", {
-    //         name: "",
-    //         phoneNumber: "",
-    //         address: "",
-    //     })
-    // }
-
     return (
         <>
             <Button onPress={onOpen}>Tambah Customer</Button>
