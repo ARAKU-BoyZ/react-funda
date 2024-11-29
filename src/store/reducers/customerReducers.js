@@ -11,7 +11,7 @@ export const customerReducer = (state = DEFAULT_STATE, action) => {
         case "DELETE_CUSTOMER":
             return {...state, customers: state.customers.filter((customer) => customer.id !== action.payload.id)}
         case "UPDATE_CUSTOMER":
-            return {...state, customers: state.customers.map((customer) => customer.id === action.payload.customer.id ? action.payload.customer : customer)}
+            return {...state, customer: state.customers.map((customer) => customer.id === action.payload.customer.id ? action.payload.customer : customer)}
         default:
             return state
     }

@@ -1,37 +1,40 @@
-import { useForm, Controller } from 'react-hook-form'
 import { axiosInstance } from '../../lib/axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'sonner'
+import { Modal, ModalBody, Input, Button, useDisclosure, ModalContent, ModalHeader, ModalFooter } from '@nextui-org/react'
+import { useEffect, useState } from 'react'
 import { updateCustomer } from '../../store/actions/customerAction'
-import { Modal, Input, Button, useDisclosure, ModalContent, ModalHeader } from '@nextui-org/react'
 
 
 
 const EditCustomer = () => {
     const {isOpen, onOpen, onOpenChange} = useDisclosure()
     const dispatch = useDispatch()
+    const customers = useSelector((state) => state.customerData)// ambil data dari redux
 
     const token = useSelector((state) => state.auth.authData)
 
-    const form = useForm({
-        defaultValues: {
-            name: "",
-            phoneNumber: "",
-            address: "",
-        }
-    })
+    const [inputNama, setInputNama] = useState("")
+    const [inputPhoneNumber, setInputPhoneNumber] = useState("")
+    const [inputAddress, setInputAddress] = useState("")
+    const [localCustomers, setLocalCustomers] = useState([])
 
 
-    const editCustomer = async () => {
+    const editCustomer = async (data) => {
         try {
             const headers = {
                 Authorization: `Bearer ${token}`,
             }
-            const response = await axiosInstance.put(`/customers/`, {headers})
-
-            if (response.status === 201) {
+            const response = await axiosInstance.put('/customers/', {
+                name: inputNama,
+                phoneNumber: inputPhoneNumber,
+                address: inputAddress,
+            }, {headers})
+            
+            if (response.status === 200 || !response.data) {
                 toast.success("Customer Changed")
-                useDispatch(updateCustomer(response.data))
+                dispatch(updateCustomer(response.data))
+                console.log(response)
             }
         } catch (error) {
             console.log(error)
@@ -40,73 +43,61 @@ const EditCustomer = () => {
     }
 
 
+    // singkron data redux ke state local
+    useEffect(() => {
+        if (customers) {
+            setLocalCustomers(customers)
+        }
+    }, [customers])
+
+
     return (
-        <div>
-            <Button onPress={onOpen}></Button>
+        <>
+            <Button onPress={onOpen}>Edit Customer</Button>
             <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
                 <ModalContent>
                     {(onClose) => (
                         <>
-                            <ModalHeader>Edit Customer</ModalHeader>
-                            <form onSubmit={form.handleSubmit(editCustomer)}>
+                            <ModalHeader>Tambah Customer</ModalHeader>
+                            <ModalBody>
                                 <div>
-                                    <label>Nama</label>
-                                    <Controller
-                                    name="nama"
-                                    control={form.control}
-                                    render={({field, fieldState}) => {
-                                        return (
-                                            <Input
-                                            {...field}
-                                            label="Nama"
-                                            size="sm"
-                                            isInvalid={Boolean(fieldState.error)}
-                                            errorMessage={fieldState.error?.message} />
-                                        )
-                                    }} />
+                                    <h1>Masukan Nama</h1>
+                                    <Input
+                                     onChange={(event) => {
+                                        setInputNama(event.target.value)
+                                     }}
+                                     value={inputNama}
+                                     placeholder="Masukan Nama" />
                                 </div>
                                 <div>
-                                    <label>Nomer Hp</label>
-                                    <Controller
-                                    name="phoneNumber"
-                                    control={form.control}
-                                    render={({field, fieldState}) => {
-                                        return (
-                                            <Input
-                                            {...field}
-                                            label="Nomer Hp"
-                                            size="sm"
-                                            isInvalid={Boolean(fieldState.error)}
-                                            errorMessage={fieldState.error?.message} />
-                                        )
-                                    }} />
+                                    <h1>Masukan No Hanphone</h1>
+                                    <Input
+                                     onChange={(event) => {
+                                        setInputPhoneNumber(event.target.value)
+                                     }}
+                                     value={inputPhoneNumber}
+                                     placeholder="Masukan Nomer" />
                                 </div>
                                 <div>
-                                    <label>Alamat</label>
-                                    <Controller
-                                    name="address"
-                                    control={form.control}
-                                    render={({field, fieldState}) => {
-                                        return (
-                                            <Input
-                                            {...field}
-                                            label="Nomer Hp"
-                                            size="sm"
-                                            isInvalid={Boolean(fieldState.error)}
-                                            errorMessage={fieldState.error?.message} />
-                                        )
-                                    }} />
+                                    <h1>Masukan Alamat</h1>
+                                    <Input
+                                     onChange={(event) => {
+                                        setInputAddress(event.target.value)
+                                     }}
+                                     value={inputAddress}
+                                     placeholder="Masukan Nama" />
                                 </div>
-                                <button
-                                type='submit'>Submit</button>
-                                <Button>Cancel</Button>
-                            </form>
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button onClick={editCustomer}>Submit</Button>
+                                <Button onPress={onClose}>Close</Button>
+                            </ModalFooter>
                         </>
                     )}
                 </ModalContent>
             </Modal>
+        </>
 
-        </div>
     )
 }
 

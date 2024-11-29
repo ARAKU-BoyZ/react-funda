@@ -1,3 +1,4 @@
+import Customer from '../src/pages/dashboard/Customer'
 import LoginPage from '../src/pages/LoginPage'
 import Dashboard from '../src/pages/dashboard/Dashboard'
 import SignupPage from '../src/pages/SignupPage'

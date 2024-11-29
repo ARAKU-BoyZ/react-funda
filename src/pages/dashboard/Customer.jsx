@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { axiosInstance } from "../../lib/axios"
 import { useSelector } from "react-redux";
 import { IsAuth } from '../../hoc/checkAuth'
-import { Button, useDisclosure } from "@nextui-org/react";
 import AddCustomer from '../../components/modals/AddCustomer'
 import EditCustomer from "../../components/modals/EditCustomer";
+import DeleteCustomer from "../../components/modals/DeleteCustomer";
 
 
 const Customer = () => {
@@ -36,7 +36,7 @@ const Customer = () => {
     <>
     <div className="overflow-x-auto">
       <div className="flex justify-end mb-4">
-        <AddCustomer />
+        {/* <AddCustomer /> */}
       </div>
       <table className="min-w-full bg-white border border-gray-200">
         <thead>
@@ -59,7 +59,7 @@ const Customer = () => {
                 <td className="px-4 py-2 text-center border">
                   <div className="flex justify-evenly">
                     <EditCustomer />
-                    <Button>Hapus</Button>
+                    <DeleteCustomer />
                   </div>
                 </td>
               </tr>
